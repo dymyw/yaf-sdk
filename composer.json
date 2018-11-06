@@ -1,0 +1,16 @@
+{
+    "name": "dymyw/yaf-sdk",
+    "description": "Yaf 扩展实践",
+    "type": "library",
+    "authors": [
+        {
+            "name": "dymyw",
+            "email": "dymayongwei@163.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Dymyw\\Yaf\\": "src/"
+        }
+    }
+}
