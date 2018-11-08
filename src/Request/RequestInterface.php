@@ -2,7 +2,7 @@
 
 namespace Dymyw\Yaf\Request;
 
-Interface RequestInterface
+interface RequestInterface
 {
     /**
      * 获取请求方式
