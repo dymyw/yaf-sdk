@@ -11,11 +11,14 @@ use Throwable;
 class Exception extends \Exception
 {
     const ERR_UNKNOWN   = 999999;
+    const ERR_SYSTEM    = 999998;
+    const ERR_NOT_AUTH  = 999997;
+    const ERR_PARAMS    = 999996;
     const ERR_CODE_MAP  = [
-        999999 => '未知错误',
-        999998 => '系统错误',
-        999997 => '无此权限',
-        999996 => '参数错误',
+        self::ERR_UNKNOWN   => '未知错误',
+        self::ERR_SYSTEM    => '系统错误',
+        self::ERR_NOT_AUTH  => '无此权限',
+        self::ERR_PARAMS    => '参数错误',
     ];
 
     /**
