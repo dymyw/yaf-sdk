@@ -2,9 +2,11 @@
 
 namespace Dymyw\Yaf\Utils;
 
-use Yaf\Response_Abstract;
-
-class ResultUtil extends Response_Abstract
+/**
+ * Class ResultUtil
+ * @package Dymyw\Yaf\Utils
+ */
+class ResultUtil
 {
     /**
      * 错误码
@@ -24,10 +26,10 @@ class ResultUtil extends Response_Abstract
     /**
      * 返回成功结果
      *
-     * @param array $data
+     * @param $data
      * @return string
      */
-    public static function success($data)
+    public static function success($data) : string
     {
         $result = [
             self::ERROR_NO  => 0,
@@ -47,7 +49,7 @@ class ResultUtil extends Response_Abstract
      * @param array $data
      * @return string
      */
-    public static function failed($msg, $code = -1, $data = [])
+    public static function failed(string $msg, int $code = -1, array $data = []) : string
     {
         $result = [
             self::ERROR_NO  => $code,
@@ -65,7 +67,7 @@ class ResultUtil extends Response_Abstract
      * @param \Exception $exception
      * @return string
      */
-    public static function exception(\Exception $exception)
+    public static function exception(\Exception $exception) : string
     {
         $code = $exception->getCode();
         if (!$code) {
@@ -83,12 +85,12 @@ class ResultUtil extends Response_Abstract
     }
 
     /**
-     * 转 Json 数据
+     * Array 转 Json 数据
      *
-     * @param array $result
+     * @param string $result
      * @return string
      */
-    private static function toJson($result)
+    private static function toJson(string $result) : string
     {
         return json_encode($result, JSON_UNESCAPED_UNICODE);
     }

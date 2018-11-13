@@ -2,6 +2,10 @@
 
 namespace Dymyw\Yaf\Request;
 
+/**
+ * Interface RequestInterface
+ * @package Dymyw\Yaf\Request
+ */
 interface RequestInterface
 {
     /**
@@ -26,5 +30,5 @@ interface RequestInterface
      * @param mixed $default
      * @return mixed
      */
-    public function getParam($name, $default = null);
+    public function getParam(string $name, $default = null);
 }

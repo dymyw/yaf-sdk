@@ -4,6 +4,10 @@ namespace Dymyw\Yaf\Response;
 
 use Throwable;
 
+/**
+ * Class Exception
+ * @package Dymyw\Yaf\Response
+ */
 class Exception extends \Exception
 {
     const ERR_UNKNOWN   = 999999;
@@ -14,6 +18,12 @@ class Exception extends \Exception
         999996 => '参数错误',
     ];
 
+    /**
+     * Exception constructor.
+     * @param string $message
+     * @param int $code
+     * @param Throwable|null $previous
+     */
     public function __construct(string $message = "", int $code = 0, Throwable $previous = null)
     {
         if (!$code) {
@@ -30,7 +40,7 @@ class Exception extends \Exception
      * @param string $exMessage
      * @return Exception
      */
-    public static function error($code, $exMessage = '')
+    public static function error($code, string $exMessage = '')
     {
         $message = self::getErrMsg($code);
 
@@ -40,11 +50,11 @@ class Exception extends \Exception
     }
 
     /**
-     * 获取错误 map
+     * 获取错误 Map
      *
      * @return array
      */
-    protected static function getCodeMap()
+    protected static function getCodeMap() : array
     {
         return self::ERR_CODE_MAP;
     }
@@ -53,9 +63,9 @@ class Exception extends \Exception
      * 根据 code 获取错误 message
      *
      * @param $code
-     * @return mixed|string
+     * @return string
      */
-    private static function getErrMsg($code)
+    private static function getErrMsg($code) : string
     {
         $codeMap = static::getCodeMap();
 

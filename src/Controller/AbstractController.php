@@ -5,29 +5,32 @@ namespace Dymyw\Yaf\Controller;
 use Dymyw\Yaf\Request\AbstractRequest;
 use Dymyw\Yaf\Utils\ResultUtil;
 use Yaf\Controller_Abstract;
-use Yaf\Dispatcher;
+use Yaf\Request_Abstract;
 
-class AbstractController extends Controller_Abstract
+/**
+ * Class AbstractController
+ * @package Dymyw\Yaf\Controller
+ */
+abstract class AbstractController extends Controller_Abstract
 {
-    public function init()
-    {
-        Dispatcher::getInstance()->disableView();
-    }
-
+    /**
+     * @return AbstractRequest|Request_Abstract
+     */
     public function getRequest()
     {
-        return new AbstractRequest();
+        $requestObj = parent::getRequest();
+        return new AbstractRequest($requestObj);
     }
 
     /**
      * 返回成功结果
      *
      * @param mixed $data
-     * @return string
      */
     public function success($data = null)
     {
-        return $this->getResponse()->setBody(ResultUtil::success($data));
+        $data = ResultUtil::success($data);
+        $this->renderJson($data);
     }
 
     /**
@@ -35,21 +38,29 @@ class AbstractController extends Controller_Abstract
      *
      * @param string $msg
      * @param int $code
-     * @return string
      */
-    public function failed($msg, $code = -1)
+    public function failed(string $msg, int $code = -1)
     {
-        return $this->getResponse()->setBody(ResultUtil::failed($msg, $code));
+        $data = ResultUtil::failed($msg, $code);
+        $this->renderJson($data);
     }
 
     /**
      * 返回成功结果
      *
-     * @param array $result
-     * @return string
+     * @param $result
      */
     public function response($result)
     {
         return $this->success($result);
+    }
+
+    /**
+     * @param string $jsonString
+     */
+    private function renderJson(string $jsonString)
+    {
+        $this->getResponse()->setHeader("Content-Type", "application/json");
+        $this->getResponse()->setBody($jsonString);
     }
 }

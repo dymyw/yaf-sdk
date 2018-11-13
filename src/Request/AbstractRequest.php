@@ -5,6 +5,10 @@ namespace Dymyw\Yaf\Request;
 use Yaf\Dispatcher;
 use Yaf\Request_Abstract;
 
+/**
+ * Class AbstractRequest
+ * @package Dymyw\Yaf\Request
+ */
 class AbstractRequest implements RequestInterface
 {
     /**
@@ -22,25 +26,13 @@ class AbstractRequest implements RequestInterface
     private $requestObj;
 
     /**
-     * AbstractRequest constructor
+     * AbstractRequest constructor.
+     * @param Request_Abstract $requestObj
      */
-    public function __construct()
+    public function __construct(Request_Abstract $requestObj)
     {
-        $this->setRequest(Dispatcher::getInstance()->getRequest())
-             ->initParams();
-    }
-
-    /**
-     * 设置 Request 对象
-     *
-     * @param Request_Abstract $request
-     * @return $this
-     */
-    public function setRequest(Request_Abstract $request)
-    {
-        $this->requestObj = $request;
-
-        return $this;
+        $this->requestObj = $requestObj;
+        $this->initParams();
     }
 
     /**
@@ -67,7 +59,7 @@ class AbstractRequest implements RequestInterface
      *
      * @return string
      */
-    public function getMethod()
+    public function getMethod() : string
     {
         return $this->requestObj->getMethod();
     }
@@ -78,7 +70,7 @@ class AbstractRequest implements RequestInterface
      * @param array $filter
      * @return array
      */
-    public function getParams(array $filter = [])
+    public function getParams(array $filter = []) : array
     {
         $params = [];
 
@@ -102,7 +94,7 @@ class AbstractRequest implements RequestInterface
      * @param mixed $default
      * @return mixed
      */
-    public function getParam($name, $default = null)
+    public function getParam(string $name, $default = null)
     {
         return isset($this->params[$name]) ? $this->params[$name] : $default;
     }
@@ -111,13 +103,13 @@ class AbstractRequest implements RequestInterface
      * @param string $name
      * @return mixed
      */
-    public function __get($name)
+    public function __get(string $name)
     {
         return $this->getParam($name);
     }
 
     /**
-     * @param string $name
+     * @param $name
      * @param $arguments
      * @return mixed
      */
