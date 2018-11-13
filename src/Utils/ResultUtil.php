@@ -87,10 +87,10 @@ class ResultUtil
     /**
      * Array 转 Json 数据
      *
-     * @param string $result
+     * @param array $result
      * @return string
      */
-    private static function toJson(string $result) : string
+    private static function toJson(array $result) : string
     {
         return json_encode($result, JSON_UNESCAPED_UNICODE);
     }
