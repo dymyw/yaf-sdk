@@ -32,7 +32,17 @@ class AbstractRequest implements RequestInterface
     public function __construct(Request_Abstract $requestObj)
     {
         $this->requestObj = $requestObj;
+        $this->init();
         $this->initParams();
+        $this->checkParams();
+    }
+
+    /**
+     * 初始化
+     */
+    public function init()
+    {
+        Dispatcher::getInstance()->disableView();
     }
 
     /**
@@ -52,6 +62,13 @@ class AbstractRequest implements RequestInterface
         $input = is_array($input) ? $input : [];
 
         $this->params = array_merge($_GET, $_POST, $input);
+    }
+
+    /**
+     * 参数验证
+     */
+    public function checkParams()
+    {
     }
 
     /**

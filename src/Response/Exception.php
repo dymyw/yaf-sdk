@@ -46,8 +46,11 @@ class Exception extends \Exception
     public static function error($code, string $exMessage = '')
     {
         $message = self::getErrMsg($code);
+        if ($exMessage) {
+            $message .= ' ' . $exMessage;
+        }
 
-        $exception = new self($message . " " . $exMessage, $code);
+        $exception = new self($message, $code);
 
         return $exception;
     }
