@@ -14,6 +14,8 @@ use Yaf\Request_Abstract;
 abstract class AbstractController extends Controller_Abstract
 {
     /**
+     * 返回 Request 对象
+     *
      * @return AbstractRequest|Request_Abstract
      */
     public function getRequest()
@@ -53,6 +55,42 @@ abstract class AbstractController extends Controller_Abstract
     public function response($result)
     {
         return $this->success($result);
+    }
+
+    /**
+     * 获取分页参数
+     *
+     * @param int $defaultNum
+     * @param int $defaultLimit
+     * @return array
+     */
+    public function getPaginationParams($defaultNum = 1, $defaultLimit = 20)
+    {
+        $pageOptions = [
+            'page_num'          => $defaultNum,
+            'page_limit'        => $defaultLimit,
+            'need_pagination'   => false,
+        ];
+
+        if (
+            null != $this->getRequest()->getParam('page_num')
+            && intval($this->getRequest()->getParam('page_num')) > 1
+        ) {
+            $pageOptions['page_num'] = intval($this->getRequest()->getParam('page_num'));
+        }
+
+        if (
+            null != $this->getRequest()->getParam('page_limit')
+            && intval($this->getRequest()->getParam('page_limit')) > 1
+        ) {
+            $pageOptions['page_limit'] = intval($this->getRequest()->getParam('page_limit'));
+        }
+
+        if ($this->getRequest()->getParam('need_pagination')) {
+            $pageOptions['need_pagination'] = true;
+        }
+
+        return $pageOptions;
     }
 
     /**

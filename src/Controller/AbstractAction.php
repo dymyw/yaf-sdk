@@ -2,16 +2,19 @@
 
 namespace Dymyw\Yaf\Controller;
 
+use Dymyw\Yaf\Request\AbstractRequest;
 use Yaf\Action_Abstract;
+use Yaf\Request_Abstract;
 
 /**
  * Class AbstractAction
  * @package Dymyw\Yaf\Controller
  * 
- * @method AbstractController getRequest()
- * @method AbstractController success($data = null) 返回成功结果
- * @method AbstractController failed(string $msg, int $code = -1) 返回失败结果
- * @method AbstractController response($result) 返回成功结果
+ * @method AbstractRequest|Request_Abstract getRequest() 返回 Request 对象
+ * @method void success($data = null) 返回成功结果
+ * @method void failed(string $msg, int $code = -1) 返回失败结果
+ * @method void response($result) 返回成功结果
+ * @method array getPaginationParams($defaultNum = 1, $defaultLimit = 20) 获取分页参数
  */
 abstract class AbstractAction extends Action_Abstract
 {
@@ -19,10 +22,10 @@ abstract class AbstractAction extends Action_Abstract
 
     /**
      * @param $name
-     * @param $arguments
+     * @param array $arguments
      * @return mixed
      */
-    public function __call($name, $arguments)
+    public function __call($name, $arguments = [])
     {
         return call_user_func_array([$this->getController(), $name], $arguments);
     }

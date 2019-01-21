@@ -4,6 +4,10 @@ namespace Dymyw\Yaf\Controller;
 
 use Yaf\Dispatcher;
 
+/**
+ * Class ApiBaseController
+ * @package Dymyw\Yaf\Controller
+ */
 class ApiBaseController extends AbstractController
 {
     /**

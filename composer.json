@@ -12,5 +12,8 @@
         "psr-4": {
             "Dymyw\\Yaf\\": "src/"
         }
+    },
+    "require": {
+        "catfan/medoo": "^1.6"
     }
 }

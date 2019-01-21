@@ -33,7 +33,7 @@ class ResultUtil
     {
         $result = [
             self::ERROR_NO  => 0,
-            self::ERROR_MSG => '',
+            self::ERROR_MSG => 'success',
             self::DATA      => $data,
             'timestamp'     => time(),
         ];
