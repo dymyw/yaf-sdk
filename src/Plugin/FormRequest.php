@@ -21,9 +21,16 @@ class FormRequest extends Plugin_Abstract
     public function preDispatch(Request_Abstract $request, Response_Abstract $response)
     {
         $appDirect = Dispatcher::getInstance()->getApplication()->getAppDirectory();
+
+        // list is a keyword
+        $actionName = $request->action;
+        if ($actionName == 'list') {
+            $actionName = 'ListRequest';
+        }
+
         $formRequestFilePath = $appDirect
             . ('Index' != $request->module ? "/modules/{$request->module}" : '')
-            . "/requests/{$request->controller}/" . ucfirst($request->action) . '.php';
+            . "/requests/{$request->controller}/" . ucfirst($actionName) . '.php';
 
         if (@file_exists($formRequestFilePath)) {
             require_once $formRequestFilePath;
@@ -32,7 +39,7 @@ class FormRequest extends Plugin_Abstract
                 $request->module,
                 'Request',
                 $request->controller,
-                ucfirst($request->action),
+                ucfirst($actionName),
             ]);
             if (@class_exists($className)) {
                 new $className($request);

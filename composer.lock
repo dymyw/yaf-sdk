@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bcb6f1b118da7ebaa998db1ff49f6b62",
+    "content-hash": "127b8594d7053619ae6854934acd4249",
     "packages": [
         {
             "name": "catfan/medoo",
@@ -64,6 +64,44 @@
                 "sqlite"
             ],
             "time": "2018-12-08T20:24:23+00:00"
+        },
+        {
+            "name": "wixel/gump",
+            "version": "v1.5.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Wixel/GUMP.git",
+                "reference": "b32c92206fb7014a40179b8468ba8bab90b3f879"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Wixel/GUMP/zipball/b32c92206fb7014a40179b8468ba8bab90b3f879",
+                "reference": "b32c92206fb7014a40179b8468ba8bab90b3f879",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "gump.class.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sean Nieuwoudt",
+                    "homepage": "https://wixelhq.com"
+                },
+                {
+                    "name": "Filis Futsarov",
+                    "homepage": "https://filis.me"
+                }
+            ],
+            "description": "A fast, extensible & stand-alone PHP input validation class that allows you to validate any data",
+            "homepage": "https://wixelhq.com/",
+            "time": "2018-06-02T23:09:34+00:00"
         }
     ],
     "packages-dev": [],
