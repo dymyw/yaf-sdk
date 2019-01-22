@@ -88,20 +88,20 @@ abstract class AbstractModel
     }
 
     /**
-     * 查询一条
-     *
      * @param $columns
      * @param null $where
      * @param null $join
-     * @return array|mixed
+     * @return array
      */
     public function get($columns, $where = null, $join = null)
     {
         if ($join) {
-            return self::$database->get($this->tableName, $join, $columns, $where);
+            $result = self::$database->get($this->tableName, $join, $columns, $where);
         } else {
-            return self::$database->get($this->tableName, $columns, $where);
+            $result = self::$database->get($this->tableName, $columns, $where);
         }
+
+        return $result ?: [];
     }
 
     /**

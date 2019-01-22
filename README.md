@@ -5,15 +5,18 @@ Yaf 扩展实践
 ### 封装
 
 - 数据返回
-    - json ✅
+    - json
 - 数据操作
-    - catfan/medoo ✅
+    - catfan/medoo
 - 参数
-    - 获取 ✅
-    - 验证 wixel/gump ✅
+    - 获取
+    - 验证 wixel/gump
 - 错误
-    - 异常 ✅
-    - 日志 ✅
+    - 异常
+    - 日志
+- 缓存
+    - Redis
+        - 规范 Redis Key 定义
 
 ### 优化
 
