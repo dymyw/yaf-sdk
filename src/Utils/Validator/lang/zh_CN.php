@@ -61,5 +61,6 @@ return [
 
         // 自定义验证规则
         'mobile'                            => '{field} 格式错误',
+        'in'                                => '{field} 必须为下面的一种: {param}'
     ],
 ];

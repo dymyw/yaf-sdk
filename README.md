@@ -27,3 +27,4 @@ Action 获取参数
 封装一个参数验证包
 
     wixel/gump 中文包是自定义的
+    wixel/gump 的 contains 有问题，自定义了验证规则 in

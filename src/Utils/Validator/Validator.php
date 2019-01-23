@@ -99,12 +99,23 @@ class Validator
     protected static function addCustomValidator()
     {
         /**
+         * 手机号验证
+         *
          * @param $field 需要验证的字段名
          * @param $input 需要验证的数据集
          * @param @param 规则参数，如 mobile,1;2;3 中的 1;2;3
          */
         \GUMP::add_validator('mobile', function ($field, $input, $param = null) {
             return (bool) preg_match(ConstMap::REGEXP_MOBILE, $input[$field]);
+        });
+
+        /**
+         * 列表验证，自带的 contains 有问题
+         *
+         * @example in,1 2 3
+         */
+        \GUMP::add_validator('in', function ($field, $input, $param = null) {
+            return in_array($input[$field], explode(' ', $param));
         });
     }
 }
