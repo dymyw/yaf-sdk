@@ -14,4 +14,7 @@ class ConstMap
     const LIST_TYPE         = 'l_';
     const SET_TYPE          = 's_';
     const SORT_SET_TYPE     = 'z_';
+
+    // regexp
+    const REGEXP_MOBILE     = '/^1[3-9]\d{9}$/';
 }

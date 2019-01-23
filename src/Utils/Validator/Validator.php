@@ -3,6 +3,7 @@
 namespace Dymyw\Yaf\Utils\Validator;
 
 use Dymyw\Yaf\Response\Exception;
+use Dymyw\Yaf\Utils\ConstMap;
 
 /**
  * Class Validator
@@ -40,6 +41,9 @@ class Validator
         if (!empty($errorMessage)) {
             \GUMP::set_error_messages($errorMessage);
         }
+
+        // 添加自定义验证规则
+        self::addCustomValidator();
 
         if (!self::$instance instanceof \GUMP) {
             self::$instance = new \GUMP();
@@ -85,5 +89,22 @@ class Validator
         }
 
         return '';
+    }
+
+    /**
+     * 添加自定义验证规则
+     *
+     * @throws \Exception
+     */
+    protected static function addCustomValidator()
+    {
+        /**
+         * @param $field 需要验证的字段名
+         * @param $input 需要验证的数据集
+         * @param @param 规则参数，如 mobile,1;2;3 中的 1;2;3
+         */
+        \GUMP::add_validator('mobile', function ($field, $input, $param = null) {
+            return (bool) preg_match(ConstMap::REGEXP_MOBILE, $input[$field]);
+        });
     }
 }

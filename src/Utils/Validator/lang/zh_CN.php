@@ -58,5 +58,8 @@ return [
         'validate_valid_persian_text'       => '{field} should be a valid text in Persian/Dari or Arabic format',
         'validate_valid_pashtu_text'        => '{field} should be a valid text in Pashtu format',
         'validate_valid_twitter'            => '{field} is not a valid twitter handle',
+
+        // 自定义验证规则
+        'mobile'                            => '{field} 格式错误',
     ],
 ];
