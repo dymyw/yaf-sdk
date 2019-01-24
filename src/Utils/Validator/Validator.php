@@ -28,25 +28,26 @@ class Validator
      */
     protected static function getInstance($fieldNames = [], $errorMessage = [])
     {
-        $langFile = require __DIR__ . DIRECTORY_SEPARATOR . 'lang' . DIRECTORY_SEPARATOR . 'zh_CN.php';
+        if (!self::$instance instanceof \GUMP) {
+            // 载入预设配置
+            $langFile = require __DIR__ . DIRECTORY_SEPARATOR . 'lang' . DIRECTORY_SEPARATOR . 'zh_CN.php';
+            \GUMP::set_field_names($langFile['field']);
+            \GUMP::set_error_messages($langFile['error']);
+
+            // 添加自定义验证规则
+            self::addCustomValidator();
+
+            self::$instance = new \GUMP();
+        }
 
         // 设置自定义可读字段名
-        \GUMP::set_field_names($langFile['field']);
         if (!empty($fieldNames)) {
             \GUMP::set_field_names($fieldNames);
         }
 
         // 设置自定义错误
-        \GUMP::set_error_messages($langFile['error']);
         if (!empty($errorMessage)) {
             \GUMP::set_error_messages($errorMessage);
-        }
-
-        // 添加自定义验证规则
-        self::addCustomValidator();
-
-        if (!self::$instance instanceof \GUMP) {
-            self::$instance = new \GUMP();
         }
 
         return self::$instance;
