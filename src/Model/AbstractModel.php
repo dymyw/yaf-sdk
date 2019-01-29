@@ -69,6 +69,30 @@ abstract class AbstractModel
     }
 
     /**
+     * 启动事务
+     */
+    public function beginTransaction()
+    {
+        self::$database->pdo->beginTransaction();
+    }
+
+    /**
+     * 提交事务
+     */
+    public function commit()
+    {
+        self::$database->pdo->commit();
+    }
+
+    /**
+     * 回滚事务
+     */
+    public function rollBack()
+    {
+        self::$database->pdo->rollBack();
+    }
+
+    /**
      * 查询列表
      *
      * @param $columns
