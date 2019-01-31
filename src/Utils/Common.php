@@ -26,28 +26,28 @@ class Common
      */
     public static function getClientIp()
     {
+        $ip = '0.0.0.0';
+
         // Nginx 代理模式下，获取客户端真实 IP
-        if (isset($_SERVER['HTTP_X_REAL_IP'])) {
+        if (!empty($_SERVER['HTTP_X_REAL_IP'])) {
             $ip = $_SERVER['HTTP_X_REAL_IP'];
         }
         // 客户端的 IP
-        elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
+        elseif (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             $ip = $_SERVER['HTTP_CLIENT_IP'];
         }
         // 浏览当前页面的用户计算机的网关
-        elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $arr = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-            $ips = array_filter($arr, function ($item) {
-                return $item != 'unknown';
-            });
-            $ip = trim(array_shift($ips));
+        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ips = explode(', ', $_SERVER['HTTP_X_FORWARDED_FOR']);
+            foreach ($ips as $ip) {
+                if (!preg_match("/^(10│172.16│192.168)./", $ip)) {
+                    break;
+                }
+            }
         }
         // 浏览当前页面的用户计算机的 IP
         elseif (isset($_SERVER['REMOTE_ADDR'])) {
             $ip = $_SERVER['REMOTE_ADDR'];
-        }
-        else {
-            $ip = '0.0.0.0';
         }
 
         return $ip;
