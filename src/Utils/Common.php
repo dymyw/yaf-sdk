@@ -24,7 +24,7 @@ class Common
      *
      * @return string
      */
-    public static function getClientIp()
+    public static function getClientIp() : string
     {
         $ip = '0.0.0.0';
 
@@ -51,5 +51,18 @@ class Common
         }
 
         return $ip;
+    }
+
+    /**
+     * 获取随机小数
+     *
+     * @param int $num 小数点后多少位
+     * @return float
+     */
+    public static function randDecimal($num = 3) : float
+    {
+        $max = pow(10, $num);
+
+        return mt_rand(1, $max) / $max;
     }
 }
