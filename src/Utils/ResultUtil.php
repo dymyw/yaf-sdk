@@ -26,10 +26,10 @@ class ResultUtil
     /**
      * 返回成功结果
      *
-     * @param $data
+     * @param array $data
      * @return string
      */
-    public static function success($data) : string
+    public static function success(array $data = []) : string
     {
         $result = [
             self::ERROR_NO  => 0,

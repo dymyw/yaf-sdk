@@ -27,9 +27,9 @@ abstract class AbstractController extends Controller_Abstract
     /**
      * 返回成功结果
      *
-     * @param mixed $data
+     * @param array $data
      */
-    public function success($data = null)
+    public function success(array $data = [])
     {
         $data = ResultUtil::success($data);
         $this->renderJson($data);
@@ -50,9 +50,9 @@ abstract class AbstractController extends Controller_Abstract
     /**
      * 返回成功结果
      *
-     * @param $result
+     * @param array $result
      */
-    public function response($result)
+    public function response(array $result = [])
     {
         return $this->success($result);
     }
