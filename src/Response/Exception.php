@@ -12,13 +12,15 @@ class Exception extends \Exception
 {
     const ERR_UNKNOWN               = 999999;
     const ERR_SYSTEM                = 999998;
-    const ERR_NOT_AUTH              = 999997;
-    const ERR_PARAMS                = 999996;
-    const ERR_REQUEST_METHOD        = 999995;
+    const ERR_URL                   = 999997;
+    const ERR_NOT_AUTH              = 999996;
+    const ERR_PARAMS                = 999995;
+    const ERR_REQUEST_METHOD        = 999994;
 
     const ERR_CODE_MAP  = [
         self::ERR_UNKNOWN           => '未知错误',
         self::ERR_SYSTEM            => '系统错误',
+        self::ERR_URL               => '请求路径错误',
         self::ERR_NOT_AUTH          => '无此权限',
         self::ERR_PARAMS            => '参数错误',
         self::ERR_REQUEST_METHOD    => '请求方式错误',
