@@ -15,6 +15,7 @@
     },
     "require": {
         "catfan/medoo": "^1.6",
-        "wixel/gump": "^1.5"
+        "wixel/gump": "^1.5",
+        "rmccue/requests": "^1.7"
     }
 }

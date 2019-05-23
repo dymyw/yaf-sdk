@@ -1,0 +1,126 @@
+<?php
+
+namespace Dymyw\Yaf\Utils\Agent;
+
+/**
+ * Class AbstractApi
+ * @package Dymyw\Yaf\Utils\Agent
+ */
+abstract class AbstractApi implements ApiInterface
+{
+    /**
+     * 请求地址
+     *
+     * @var string
+     */
+    private $url = '';
+
+    /**
+     * 请求参数
+     *
+     * @var array
+     */
+    private $params = [];
+
+    /**
+     * 请求失败的默认结果
+     *
+     * @var mixed
+     */
+    private $default;
+
+    /**
+     * 接口响应结果
+     */
+    private $response;
+
+    /**
+     * AbstractApi constructor.
+     *
+     * @param string $url
+     * @param array $params
+     * @param mixed $default
+     */
+    public function __construct(string $url, array $params, $default = null)
+    {
+        $this->url      = $url;
+        $this->params   = $params;
+        $this->default  = $default;
+    }
+
+    /**
+     * 获取请求
+     *
+     * @return array
+     */
+    abstract public function getRequest();
+
+    /**
+     * 设置请求地址
+     *
+     * @param string $url
+     * @return $this|mixed
+     */
+    public function setUrl(string $url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * 设置请求参数
+     *
+     * @param array $params
+     * @return $this|mixed
+     */
+    public function setParams(array $params = [])
+    {
+        $this->params = $params;
+
+        return $this;
+    }
+
+    /**
+     * 获取接口请求失败的默认值
+     *
+     * @return mixed
+     */
+    public function getDefault()
+    {
+        return $this->default;
+    }
+
+    /**
+     * 设置接口响应结果
+     *
+     * @param $response
+     * @return $this
+     */
+    public function setResponse($response)
+    {
+        $this->response = $response;
+
+        return $this;
+    }
+
+    /**
+     * 获取接口响应结果
+     *
+     * @return mixed
+     */
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    /**
+     * 接口请求后续操作
+     */
+    public function afterRequest()
+    {
+        if ($this->afterRequest) {
+            call_user_func($this->afterRequest, $this);
+        }
+    }
+}

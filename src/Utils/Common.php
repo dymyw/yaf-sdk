@@ -65,4 +65,16 @@ class Common
 
         return mt_rand(1, $max) / $max;
     }
+
+    /**
+     * 获取时间
+     *
+     * @return float
+     */
+    public static function getMicroTime()
+    {
+        list($usec, $sec) = explode(" ", microtime());
+
+        return ((float) $usec + (float) $sec);
+    }
 }
