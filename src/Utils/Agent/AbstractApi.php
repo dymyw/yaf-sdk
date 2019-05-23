@@ -71,12 +71,21 @@ abstract class AbstractApi implements ApiInterface
     /**
      * 设置请求参数
      *
-     * @param array $params
+     * @param $key
+     * @param $value
      * @return $this|mixed
      */
-    public function setParams(array $params = [])
+    public function setParams($key, $value)
     {
-        $this->params = $params;
+        if (is_array($key)) {
+            $this->params = array_merge($this->params, $key);
+        } else {
+            if (is_array(json_decode($key, true))) {
+                $this->params = array_merge($this->params, $key);
+            } else {
+                $this->params[$key] = $value;
+            }
+        }
 
         return $this;
     }

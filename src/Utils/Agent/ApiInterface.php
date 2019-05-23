@@ -19,10 +19,11 @@ interface ApiInterface
     /**
      * 设置请求参数
      *
-     * @param array $params
+     * @param $key
+     * @param $value
      * @return mixed
      */
-    public function setParams(array $params = []);
+    public function setParams($key, $value);
 
     /**
      * 获取接口请求失败的默认值
