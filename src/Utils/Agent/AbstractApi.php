@@ -13,40 +13,26 @@ abstract class AbstractApi implements ApiInterface
      *
      * @var string
      */
-    private $url = '';
+    protected $url = '';
 
     /**
      * 请求参数
      *
      * @var array
      */
-    private $params = [];
+    protected $params = [];
 
     /**
      * 请求失败的默认结果
      *
      * @var mixed
      */
-    private $default;
+    protected $default;
 
     /**
      * 接口响应结果
      */
     private $response;
-
-    /**
-     * AbstractApi constructor.
-     *
-     * @param string $url
-     * @param array $params
-     * @param mixed $default
-     */
-    public function __construct(string $url, array $params, $default = null)
-    {
-        $this->url      = $url;
-        $this->params   = $params;
-        $this->default  = $default;
-    }
 
     /**
      * 获取请求

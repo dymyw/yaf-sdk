@@ -22,7 +22,7 @@ class AgentApi
      *
      * @var array
      */
-    private $options = [];
+    static $options = [];
 
     /**
      * 请求 Api
@@ -31,7 +31,7 @@ class AgentApi
      * @return float
      * @throws \Requests_Exception
      */
-    public function request(...$apis)
+    public static function request(...$apis)
     {
         $pre = $requests = $responses = [];
 
@@ -51,10 +51,10 @@ class AgentApi
                 $request['header'] ?? [],
                 $request['params'] ?? [],
                 $request['method'] ?? Requests::GET,
-                $this->getOptions()
+                self::getOptions()
             );
         } else {
-            $responses = Requests::request_multiple($requests, $this->getOptions());
+            $responses = Requests::request_multiple($requests, self::getOptions());
         }
         $cost = Common::getMicroTime() - $start;
 
@@ -74,13 +74,10 @@ class AgentApi
      * 设置超时时间
      *
      * @param int $timeout
-     * @return $this
      */
-    public function setTimeout(int $timeout = self::TIMEOUT)
+    public static function setTimeout(int $timeout = self::TIMEOUT)
     {
-        $this->options['timeout'] = $timeout;
-
-        return $this;
+        self::$options['timeout'] = $timeout;
     }
 
     /**
@@ -88,8 +85,8 @@ class AgentApi
      *
      * @return array
      */
-    public function getOptions()
+    public static function getOptions()
     {
-        return $this->options;
+        return self::$options;
     }
 }
