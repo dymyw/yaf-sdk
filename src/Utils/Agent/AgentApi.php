@@ -49,8 +49,8 @@ class AgentApi
             $responses[] = Requests::request(
                 $request['url'],
                 $request['header'] ?? [],
-                $request['params'] ?? [],
-                $request['method'] ?? Requests::GET,
+                $request['data'] ?? [],
+                $request['type'] ?? Requests::GET,
                 self::getOptions()
             );
         } else {

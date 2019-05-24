@@ -11,6 +11,13 @@ use Dymyw\Yaf\Response\Exception;
 abstract class AbstractApi implements ApiInterface
 {
     /**
+     * 接口请求完成后的回调函数
+     *
+     * @var null|callable
+     */
+    public $afterRequest = null;
+
+    /**
      * 请求地址
      *
      * @var string
@@ -33,6 +40,8 @@ abstract class AbstractApi implements ApiInterface
 
     /**
      * 接口响应结果
+     *
+     * @var mixed
      */
     private $response;
 
@@ -40,6 +49,12 @@ abstract class AbstractApi implements ApiInterface
      * 获取请求
      *
      * @return array
+     * @example [
+     *              'url'       => '',      // 必须
+     *              'header'    => [],      // 非必须
+     *              'data'      => [],      // 非必须
+     *              'type'      => 'get',   // 非必须，默认 get
+     *          ]
      */
     abstract public function getRequest();
 
