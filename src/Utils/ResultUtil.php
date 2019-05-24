@@ -11,7 +11,7 @@ class ResultUtil
     /**
      * 错误码
      */
-    const ERROR_NO  = 'err_no';
+    const ERROR_NO = 'err_no';
 
     /**
      * 错误信息
@@ -21,7 +21,17 @@ class ResultUtil
     /**
      * 数据
      */
-    const DATA      = 'data';
+    const DATA = 'data';
+
+    /**
+     * 正确的错误码
+     */
+    const SUCCESS_NO    = 0;
+
+    /**
+     * 正确的错误信息
+     */
+    const SUCCESS_MSG   = 'success';
 
     /**
      * 返回成功结果
@@ -32,8 +42,8 @@ class ResultUtil
     public static function success(array $data = []) : string
     {
         $result = [
-            self::ERROR_NO  => 0,
-            self::ERROR_MSG => 'success',
+            self::ERROR_NO  => self::SUCCESS_NO,
+            self::ERROR_MSG => self::SUCCESS_MSG,
             self::DATA      => $data,
             'timestamp'     => time(),
         ];
