@@ -2,6 +2,8 @@
 
 namespace Dymyw\Yaf\Utils\Agent;
 
+use Dymyw\Yaf\Response\Exception;
+
 /**
  * Class AbstractApi
  * @package Dymyw\Yaf\Utils\Agent
@@ -103,10 +105,17 @@ abstract class AbstractApi implements ApiInterface
      * 获取接口响应结果
      *
      * @return mixed
+     * @throws Exception
      */
     public function getResponse()
     {
-        return $this->response;
+        $response = json_decode($this->response->body, true);
+
+        if ($response === false || $response === null) {
+            throw Exception::error(sprintf('请求数据解析失败：%s', json_encode($this->getRequest())), 900000);
+        }
+
+        return $response;
     }
 
     /**
