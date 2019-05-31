@@ -2,6 +2,7 @@
 
 namespace Dymyw\Yaf\Request;
 
+use Dymyw\Yaf\Response\Exception;
 use Yaf\Dispatcher;
 use Yaf\Request_Abstract;
 
@@ -79,6 +80,16 @@ class AbstractRequest implements RequestInterface
     public function getMethod() : string
     {
         return $this->requestObj->getMethod();
+    }
+
+    /**
+     * 强制 POST 请求
+     */
+    public function forcePost()
+    {
+        if ('POST' != $this->getMethod()) {
+            throw Exception::error(Exception::ERR_REQUEST_METHOD);
+        }
     }
 
     /**

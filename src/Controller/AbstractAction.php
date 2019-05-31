@@ -9,6 +9,7 @@ use Yaf\Request_Abstract;
 /**
  * Class AbstractAction
  * @package Dymyw\Yaf\Controller
+ * @see AbstractController
  * 
  * @method AbstractRequest|Request_Abstract getRequest() 返回 Request 对象
  * @method void success(array $data = []) 返回成功结果
