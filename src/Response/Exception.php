@@ -76,7 +76,7 @@ class Exception extends \Exception
      * @param $code
      * @return string
      */
-    private static function getErrMsg($code) : string
+    public static function getErrMsg($code) : string
     {
         $codeMap = static::getCodeMap();
 
