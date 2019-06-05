@@ -77,4 +77,15 @@ class Common
 
         return ((float) $usec + (float) $sec);
     }
+
+    /**
+     * 脱敏手机号
+     *
+     * @param $mobile
+     * @return mixed
+     */
+    public static function hideMobile($mobile)
+    {
+        return substr_replace($mobile, '****', 3, 4);
+    }
 }
