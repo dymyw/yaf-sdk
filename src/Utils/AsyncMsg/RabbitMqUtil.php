@@ -5,7 +5,6 @@ namespace Dymyw\Yaf\Utils\AsyncMsg;
 use PhpAmqpLib\Connection\AbstractConnection;
 use PhpAmqpLib\Connection\AMQPLazyConnection;
 use Thumper\ConnectionRegistry;
-use Thumper\Producer;
 use Yaf\Registry;
 
 /**
@@ -17,19 +16,12 @@ class RabbitMqUtil
     /**
      * @var RabbitMqUtil
      */
-    protected static $instance;
+    protected static $instance  = null;
 
     /**
      * @var AbstractConnection[]
      */
-    private $conn = [];
-
-    /**
-     * 默认连接名称
-     *
-     * @var string
-     */
-    private $defaultConnKey     = 'default';
+    private $conn               = [];
 
     /**
      * connection options
@@ -46,31 +38,31 @@ class RabbitMqUtil
     private $heartbeat          = 60;
 
     /**
-     * @var ConnectionRegistry
+     * @var string
      */
-    private $register = null;
+    private $defaultConnName    = 'default';
 
     /**
-     * @var null|Producer
+     * @var null|ConnectionRegistry
      */
-    private $producer = null;
+    private $register           = null;
 
     /**
      * RabbitMqUtil constructor.
      */
     public function __construct()
     {
-        $config         = Registry::get('config');
-        $rabbitMqConfig = $config->amqp;
+        $config     = Registry::get('config');
+        $amqpConfig = $config->amqp;
 
         $this->setConnection(
-            $this->defaultConnKey,
-            $rabbitMqConfig->host,
-            $rabbitMqConfig->port,
-            $rabbitMqConfig->username,
-            $rabbitMqConfig->password
+            $this->defaultConnName,
+            $amqpConfig->host,
+            $amqpConfig->port,
+            $amqpConfig->username,
+            $amqpConfig->password
         );
-        $this->register = new ConnectionRegistry($this->conn, $this->defaultConnKey);
+        $this->register = new ConnectionRegistry($this->conn, $this->defaultConnName);
     }
 
     /**
@@ -88,16 +80,16 @@ class RabbitMqUtil
     }
 
     /**
-     * @param $key
+     * @param $name
      * @param $host
      * @param $port
      * @param $username
      * @param $password
      * @return $this
      */
-    public function setConnection($key, $host, $port, $username, $password)
+    public function setConnection($name, $host, $port, $username, $password)
     {
-        if (!key_exists($key, $this->conn)) {
+        if (!array_key_exists($name, $this->conn)) {
             $conn = new AMQPLazyConnection(
                 $host,
                 $port,
@@ -115,10 +107,10 @@ class RabbitMqUtil
                 $this->heartbeat
             );
 
-            $this->conn[$key] = $conn;
+            $this->conn[$name] = $conn;
 
-            if ($key != $this->defaultConnKey) {
-                $this->register->addConnection($key, $conn);
+            if ($name != $this->defaultConnName) {
+                $this->register->addConnection($name, $conn);
             }
         }
 
@@ -126,15 +118,11 @@ class RabbitMqUtil
     }
 
     /**
-     * @param $name
-     * @return Producer
+     * @param null $name
+     * @return AbstractConnection
      */
-    public function getProducer($name)
+    public function getConnection($name = null)
     {
-        if (!$this->producer) {
-            $this->producer = new Producer($this->register->getConnection($name));
-        }
-
-        return $this->producer;
+        return $this->register->getConnection($name);
     }
 }
