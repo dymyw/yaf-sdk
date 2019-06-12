@@ -16,6 +16,7 @@
     "require": {
         "catfan/medoo": "^1.6",
         "wixel/gump": "^1.5",
-        "rmccue/requests": "^1.7"
+        "rmccue/requests": "^1.7",
+        "php-amqplib/thumper": "^0.5.0"
     }
 }
