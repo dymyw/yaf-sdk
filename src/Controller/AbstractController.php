@@ -5,6 +5,7 @@ namespace Dymyw\Yaf\Controller;
 use Dymyw\Yaf\Request\AbstractRequest;
 use Dymyw\Yaf\Utils\ResultUtil;
 use Yaf\Controller_Abstract;
+use Yaf\Dispatcher;
 use Yaf\Request_Abstract;
 
 /**
@@ -14,6 +15,16 @@ use Yaf\Request_Abstract;
 abstract class AbstractController extends Controller_Abstract
 {
     /**
+     * @var string
+     */
+    protected $requestClass;
+
+    /**
+     * @var object
+     */
+    protected $requestObj;
+
+    /**
      * 返回 Request 对象
      *
      * @return AbstractRequest|Request_Abstract
@@ -21,7 +32,13 @@ abstract class AbstractController extends Controller_Abstract
     public function getRequest()
     {
         $requestObj = parent::getRequest();
-        return new AbstractRequest($requestObj);
+
+        if (!$this->requestObj instanceof AbstractRequest) {
+            $requestClass = $this->getRequestClass($requestObj);
+            $this->requestObj = new $requestClass($requestObj);
+        }
+
+        return $this->requestObj;
     }
 
     /**
@@ -91,6 +108,40 @@ abstract class AbstractController extends Controller_Abstract
         }
 
         return $pageOptions;
+    }
+
+    /**
+     * 获取请求的类名
+     *
+     * @param Request_Abstract $request
+     * @return string
+     */
+    protected function getRequestClass(Request_Abstract $request)
+    {
+        $appDirect = Dispatcher::getInstance()->getApplication()->getAppDirectory();
+
+        // list is a keyword
+        $actionName = $request->action;
+        if ($actionName == 'list') {
+            $actionName = 'ListRequest';
+        }
+
+        $formRequestFilePath = $appDirect
+            . ('Index' != $request->module ? "/modules/{$request->module}" : '')
+            . "/requests/{$request->controller}/" . ucfirst($actionName) . '.php';
+
+        if (@file_exists($formRequestFilePath)) {
+            require_once $formRequestFilePath;
+
+            $this->requestClass = implode('\\', [
+                $request->module,
+                'Request',
+                $request->controller,
+                ucfirst($actionName),
+            ]);
+        }
+
+        return $this->requestClass;
     }
 
     /**

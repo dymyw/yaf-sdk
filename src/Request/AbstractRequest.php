@@ -128,6 +128,20 @@ class AbstractRequest implements RequestInterface
     }
 
     /**
+     * 获取请求参数
+     *
+     * @param $name
+     * @param $value
+     * @return $this
+     */
+    public function setParam($name, $value)
+    {
+        $this->params[$name] = $value;
+
+        return $this;
+    }
+
+    /**
      * @param string $name
      * @return mixed
      */
@@ -144,5 +158,20 @@ class AbstractRequest implements RequestInterface
     public function __call($name, $arguments)
     {
         return $this->requestObj->{$name}($arguments);
+    }
+
+    /**
+     * int 类参数，字符串转换为数组
+     *
+     * @param array $fields
+     */
+    protected function intStrToArray(array $fields)
+    {
+        foreach ($fields as $field) {
+            $data = $this->getParam($field);
+            if (!empty($data) && strpos($data, ',') !== false) {
+                $this->setParam($field, array_map('intval', explode(',', $data)));
+            }
+        }
     }
 }
